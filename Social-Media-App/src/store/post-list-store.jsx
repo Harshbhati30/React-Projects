@@ -12,19 +12,27 @@ const PostList = createContext({
 const DEFAULT_POST_LIST = [
   {
     id: '1',
-    title: 'Going to mumbai',
-    body: 'Hope to enjoy a lot, Peace Out',
-    reaction: 45,
-    userId: "user-9",
-    tags: ["vactaions", "enjoying", "family time"]
+    title: 'Lets Make Music',
+    body: 'Music is a form of expressing feelings and emotions in rhythm and poetic style.',
+    reaction: 200,
+    userId: 'user-5',
+    tags: ['music', 'hip-hop', 'singing']
   },
   {
     id: '2',
-    title: 'Hip Hop Music',
-    body: 'The hip hop scene in india is growing day by day, We see a new artist every other day',
-    reaction: 500,
-    userId: "user-13",
-    tags: ["dhh", "hiphop", "rap"]
+    title: 'Trip to the Mountains',
+    body: 'Planning a weekend getaway to the snowy peaks. Excited for fresh air and beautiful views.',
+    reaction: 134,
+    userId: 'user-3',
+    tags: ['travel', 'adventure', 'nature']
+  },
+  {
+    id: '3',
+    title: 'Cooking with Friends',
+    body: 'Had a great time trying new recipes together. Lots of laughter, and some burnt cookies too.',
+    reaction: 87,
+    userId: 'user-7',
+    tags: ['food', 'friends', 'fun']
   }
 ];
 
@@ -33,14 +41,27 @@ const postListReducer = (currPostList, action) => {
   if(action.type ==='DELETE_POST') {
     newPostList=currPostList.filter(post => post.id !== action.payload.postId);
   }
+  else if(action.type === 'ADD_POST') {
+    newPostList=[action.payload, ...currPostList]
+  }
   return newPostList;
 };
 
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer, DEFAULT_POST_LIST);
 
-  const addPost = () => {
-    // Implementation needed
+  const addPost = (userId, postContent,postTitle,reaction,tags) => {
+    dispatchPostList({
+      type: "ADD_POST",
+      payload: {
+    id: Date.now(),
+    title: postTitle,
+    body: postContent,
+    reaction: reaction,
+    userId: userId,
+    tags: tags
+  }
+    })
   };
 
   const deletePost = (postId) => {
