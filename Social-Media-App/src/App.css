@@ -39,3 +39,8 @@
   min-height: 70vh;        /* keep it centered even on small screens */
   text-align: center;
 }
+
+.spinner{
+  margin-top: 10% !important;
+  margin-bottom: 10% !important;
+}
